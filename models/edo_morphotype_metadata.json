@@ -1,0 +1,93 @@
+{
+  "algorithm_version": "pac_v2_morphotypes_1.0.0",
+  "schema_version": "1",
+  "k": 10,
+  "feature_cols": [
+    "duration_s",
+    "drop_pct",
+    "nadir_spo2",
+    "slope_desat_pct_s",
+    "slope_recov_pct_s",
+    "auc_spo2_pct_s",
+    "ird_event",
+    "ird_spo2_comp",
+    "ird_hr_comp",
+    "ird_mov_comp"
+  ],
+  "n_training": 42819,
+  "random_state": 42,
+  "greek_letters": [
+    "α",
+    "β",
+    "γ",
+    "δ",
+    "ε",
+    "ζ",
+    "η",
+    "θ",
+    "ι",
+    "κ"
+  ],
+  "training_mask": {
+    "in_sleep": true,
+    "near_gap": false,
+    "meets_3pct": true
+  },
+  "inertia_final": 154765.88554444272,
+  "k_sweep": [
+    {
+      "k": 2,
+      "inertia": 311118.28505270404,
+      "silhouette": 0.466707,
+      "davies_bouldin": 1.330362
+    },
+    {
+      "k": 3,
+      "inertia": 263699.35515424184,
+      "silhouette": 0.347711,
+      "davies_bouldin": 1.397122
+    },
+    {
+      "k": 4,
+      "inertia": 239155.56537213683,
+      "silhouette": 0.296176,
+      "davies_bouldin": 1.437455
+    },
+    {
+      "k": 5,
+      "inertia": 215849.2572246899,
+      "silhouette": 0.297531,
+      "davies_bouldin": 1.307413
+    },
+    {
+      "k": 6,
+      "inertia": 200918.73579863383,
+      "silhouette": 0.299212,
+      "davies_bouldin": 1.320003
+    },
+    {
+      "k": 7,
+      "inertia": 187373.64398260188,
+      "silhouette": 0.261862,
+      "davies_bouldin": 1.292434
+    },
+    {
+      "k": 8,
+      "inertia": 174521.58142518412,
+      "silhouette": 0.257402,
+      "davies_bouldin": 1.287835
+    },
+    {
+      "k": 9,
+      "inertia": 163806.92780794235,
+      "silhouette": 0.262135,
+      "davies_bouldin": 1.243366
+    },
+    {
+      "k": 10,
+      "inertia": 154765.88554444272,
+      "silhouette": 0.25672,
+      "davies_bouldin": 1.224019
+    }
+  ]
+}

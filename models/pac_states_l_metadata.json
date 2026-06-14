@@ -1,0 +1,101 @@
+{
+  "algorithm_version": "pac_v2_states_1.0.0",
+  "schema_version": "1",
+  "scale": "l",
+  "k": 4,
+  "feature_cols": [
+    "spo2_mean",
+    "spo2_std",
+    "spo2_min",
+    "spo2_max",
+    "spo2_p10",
+    "spo2_p90",
+    "hr_mean",
+    "hr_std",
+    "hr_min",
+    "hr_max",
+    "hr_p10",
+    "hr_p90",
+    "mov_mean",
+    "mov_std",
+    "mov_max",
+    "n_edos_total",
+    "n_alpha",
+    "n_beta",
+    "n_gamma",
+    "n_delta",
+    "ird_mean_local",
+    "frac_wake",
+    "frac_light_sleep",
+    "frac_deep_sleep"
+  ],
+  "n_training": 7321,
+  "random_state": 42,
+  "state_labels": [
+    "L0",
+    "L1",
+    "L2",
+    "L3"
+  ],
+  "training_mask": {
+    "frac_wake_max": 0.5,
+    "coverage_min": 0.5
+  },
+  "inertia_final": 128148.48475046098,
+  "k_sweep": [
+    {
+      "k": 2,
+      "inertia": 148852.47640813916,
+      "silhouette": 0.167609,
+      "davies_bouldin": 2.178755
+    },
+    {
+      "k": 3,
+      "inertia": 136621.26898205702,
+      "silhouette": 0.102143,
+      "davies_bouldin": 2.200623
+    },
+    {
+      "k": 4,
+      "inertia": 128148.48475046098,
+      "silhouette": 0.100626,
+      "davies_bouldin": 2.15834
+    },
+    {
+      "k": 5,
+      "inertia": 120781.87902305795,
+      "silhouette": 0.107372,
+      "davies_bouldin": 1.941699
+    },
+    {
+      "k": 6,
+      "inertia": 114928.71371919224,
+      "silhouette": 0.101587,
+      "davies_bouldin": 1.967818
+    },
+    {
+      "k": 7,
+      "inertia": 110656.0940915457,
+      "silhouette": 0.097547,
+      "davies_bouldin": 1.922955
+    },
+    {
+      "k": 8,
+      "inertia": 105483.02664352939,
+      "silhouette": 0.105542,
+      "davies_bouldin": 1.85107
+    },
+    {
+      "k": 9,
+      "inertia": 101893.18479539873,
+      "silhouette": 0.105829,
+      "davies_bouldin": 1.813725
+    },
+    {
+      "k": 10,
+      "inertia": 98425.34717506461,
+      "silhouette": 0.099509,
+      "davies_bouldin": 1.789054
+    }
+  ]
+}

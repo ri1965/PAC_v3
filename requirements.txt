@@ -1,0 +1,35 @@
+# PAC_v2 — dependencias Python (3.10+)
+#
+# Pines flexibles (rangos compatibles) — para desarrollo y CI.
+# Para reproducibilidad de tesis, generar `requirements.lock.txt`
+# desde el venv real con `scripts/freeze_lock.sh` y commitear ambos.
+# El lock fija versiones exactas; este archivo fija rangos compatibles.
+#
+# ⚠ PENDIENTE: `requirements.lock.txt` todavía no existe en el repo.
+#   Generarlo antes de defensa con el venv `apnea` activo:
+#       source .venv/bin/activate   # o: conda activate apnea
+#       bash scripts/freeze_lock.sh
+#   Esto produce `requirements.lock.txt` con versiones exactas (pip freeze).
+#   Commitear ambos archivos.
+
+# --- Core data pipeline (obligatorias) ---
+pandas>=2.2,<3.0
+numpy>=1.26,<3.0
+pyarrow>=15.0,<25.0
+openpyxl>=3.1,<4.0
+scikit-learn>=1.4,<2.0
+
+# --- Visualización (dashboards y stratigraphy) ---
+plotly>=5.20,<7.0
+matplotlib>=3.8,<4.0
+seaborn>=0.13,<1.0
+lightgbm>=4.0,<5.0
+
+# --- Reporting (tablas markdown en reportes de interpretabilidad) ---
+tabulate>=0.9,<1.0
+
+# --- Notebooks (Jupyter kernel registration) ---
+ipykernel>=6.0,<7.0
+
+# --- Testing ---
+pytest>=8.0,<10.0

@@ -1,0 +1,51 @@
+{
+  "EVENT_FEATURES": [
+    "state_m_enc",
+    "state_s_enc",
+    "state_l_enc",
+    "pre_state_m_enc",
+    "pre_eq_current",
+    "frac_path_m_30ev",
+    "recent_morph_mean",
+    "ci_so_far",
+    "n_severe_so_far",
+    "event_position"
+  ],
+  "NIGHT_FEATURES": [
+    "ci_s",
+    "ci_m",
+    "ci_l",
+    "coupling_index",
+    "frac_state_m_M0",
+    "frac_state_m_M1",
+    "frac_state_m_M2",
+    "frac_state_m_M3",
+    "frac_state_m_M4",
+    "frac_state_m_M5",
+    "frac_state_m_M6",
+    "frac_state_m_M7",
+    "entropy_state_m",
+    "pct_severe",
+    "mean_ari",
+    "night_traj_cluster"
+  ],
+  "traj_features": [
+    "frac_state_m_M1",
+    "frac_state_m_M3",
+    "mean_ari",
+    "n_transitions_state_m",
+    "entropy_state_m",
+    "frac_state_l_L0",
+    "frac_state_s_S4"
+  ],
+  "pathological_states_m": [
+    1,
+    3
+  ],
+  "event_threshold": 0.386,
+  "night_threshold": 0.277,
+  "risk_w_event": 0.4,
+  "risk_w_night": 0.6,
+  "risk_low_max": 30,
+  "risk_high_min": 60
+}

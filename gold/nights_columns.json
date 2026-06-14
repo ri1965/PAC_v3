@@ -1,0 +1,899 @@
+{
+  "manifest_version": "1.0",
+  "source": "gold/nights.parquet",
+  "n_columns": 146,
+  "summary_by_kind": {
+    "identity": 3,
+    "flag": 5,
+    "single_night": 132,
+    "cross_night_corpus": 3,
+    "cross_night_patient": 3
+  },
+  "kind_legend": {
+    "identity": "Identificador o trazabilidad (siempre presente).",
+    "flag": "Flag booleano de pertenencia a cohorte.",
+    "single_night": "Calculable mirando UNA noche aislada. La app la podrá emitir desde un xlsx ingestado sin necesidad del corpus.",
+    "cross_night_corpus": "Requiere conocer el corpus para computarse (percentile-rank vs corpus quality).",
+    "cross_night_patient": "Requiere otras noches del mismo paciente (delta vs baseline leave-one-out, ≥3 noches quality)."
+  },
+  "override_file": "gold/nights_columns_descriptions.csv",
+  "n_overrides_applied": 0,
+  "columns": [
+    {
+      "name": "night_record_id",
+      "kind": "identity",
+      "dtype": "str",
+      "description": "Identificador único de la noche (NR_ + hash)."
+    },
+    {
+      "name": "user_id",
+      "kind": "identity",
+      "dtype": "str",
+      "description": "Identificador pseudonimizado del paciente."
+    },
+    {
+      "name": "ts_start",
+      "kind": "single_night",
+      "dtype": "str",
+      "description": "Timestamp de inicio del registro."
+    },
+    {
+      "name": "ts_end",
+      "kind": "single_night",
+      "dtype": "str",
+      "description": "Timestamp de fin del registro."
+    },
+    {
+      "name": "duration_s",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Duración total del registro (segundos)."
+    },
+    {
+      "name": "tst_s",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Total Sleep Time (segundos)."
+    },
+    {
+      "name": "waso_s",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Wake After Sleep Onset (segundos)."
+    },
+    {
+      "name": "sleep_efficiency",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Eficiencia del sueño (TST / tiempo en cama)."
+    },
+    {
+      "name": "sleep_latency_s",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Latencia al sueño (segundos)."
+    },
+    {
+      "name": "n_stage_shifts",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de cambios de estadio del sueño."
+    },
+    {
+      "name": "mean_spo2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Media de SpO₂ (%)."
+    },
+    {
+      "name": "median_spo2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Mediana de SpO₂ (%)."
+    },
+    {
+      "name": "min_spo2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Mínimo de SpO₂ (%)."
+    },
+    {
+      "name": "std_spo2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Desvío estándar de SpO₂ (%)."
+    },
+    {
+      "name": "t90_frac",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de tiempo bajo SpO₂ 90%."
+    },
+    {
+      "name": "t88_frac",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de tiempo bajo SpO₂ 88%."
+    },
+    {
+      "name": "t85_frac",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de tiempo bajo SpO₂ 85%."
+    },
+    {
+      "name": "ct90_min",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Tiempo total bajo SpO₂ 90% (minutos)."
+    },
+    {
+      "name": "ct88_min",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Tiempo total bajo SpO₂ 88% (minutos)."
+    },
+    {
+      "name": "ct85_min",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Tiempo total bajo SpO₂ 85% (minutos)."
+    },
+    {
+      "name": "hypoxic_burden_90",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden bajo el umbral 90 (área bajo la curva)."
+    },
+    {
+      "name": "hypoxic_burden_88",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden bajo el umbral 88."
+    },
+    {
+      "name": "mean_hr",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Media de HR (bpm)."
+    },
+    {
+      "name": "median_hr",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Mediana de HR (bpm)."
+    },
+    {
+      "name": "min_hr",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Mínimo de HR (bpm)."
+    },
+    {
+      "name": "max_hr",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Máximo de HR (bpm)."
+    },
+    {
+      "name": "std_hr",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Desvío estándar de HR (bpm)."
+    },
+    {
+      "name": "n_brady_episodes",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de episodios de bradicardia."
+    },
+    {
+      "name": "n_tachy_episodes",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de episodios de taquicardia."
+    },
+    {
+      "name": "mean_delta_hr_per_edo",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Δ HR promedio por EDO (bpm)."
+    },
+    {
+      "name": "p90_delta_hr_per_edo",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Δ HR p90 por EDO (bpm)."
+    },
+    {
+      "name": "mean_mov",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Media de la señal de movimiento."
+    },
+    {
+      "name": "movement_index_per_h",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Índice de movimientos por hora."
+    },
+    {
+      "name": "n_edos_total",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número total de EDOs detectados."
+    },
+    {
+      "name": "mean_drop_pct",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Drop SpO₂ promedio por EDO (%)."
+    },
+    {
+      "name": "mean_duration_s_per_edo",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Duración promedio por EDO (segundos)."
+    },
+    {
+      "name": "max_duration_s_per_edo",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Duración máxima por EDO (segundos)."
+    },
+    {
+      "name": "ird_night",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Index of Respiratory Distress agregado de la noche."
+    },
+    {
+      "name": "mean_ird_event",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "IRD promedio por evento."
+    },
+    {
+      "name": "p90_ird_event",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "IRD p90 por evento."
+    },
+    {
+      "name": "odi_2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Oxygen Desaturation Index con drop ≥2% (por hora de TST)."
+    },
+    {
+      "name": "ahi_2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Apnea-Hypopnea Index con drop ≥2% (por hora de TST)."
+    },
+    {
+      "name": "n_edos_2pct",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de EDOs con drop ≥2%."
+    },
+    {
+      "name": "odi_3",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Oxygen Desaturation Index con drop ≥3% (por hora de TST)."
+    },
+    {
+      "name": "ahi_3",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Apnea-Hypopnea Index con drop ≥3% (por hora de TST)."
+    },
+    {
+      "name": "n_edos_3pct",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de EDOs con drop ≥3%."
+    },
+    {
+      "name": "odi_4",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Oxygen Desaturation Index con drop ≥4% (por hora de TST)."
+    },
+    {
+      "name": "ahi_4",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Apnea-Hypopnea Index con drop ≥4% (por hora de TST)."
+    },
+    {
+      "name": "n_edos_4pct",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de EDOs con drop ≥4%."
+    },
+    {
+      "name": "odi_5",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Oxygen Desaturation Index con drop ≥5% (por hora de TST)."
+    },
+    {
+      "name": "ahi_5",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Apnea-Hypopnea Index con drop ≥5% (por hora de TST)."
+    },
+    {
+      "name": "n_edos_5pct",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de EDOs con drop ≥5%."
+    },
+    {
+      "name": "odi_3_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "ODI 3% computado por pac_v2."
+    },
+    {
+      "name": "odi_3_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "ODI 3% reportado por el device."
+    },
+    {
+      "name": "odi_3_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta ODI 3% (pac_v2 − device)."
+    },
+    {
+      "name": "odi_3_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa ODI 3% (pac_v2/device − 1)."
+    },
+    {
+      "name": "odi_3_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa ODI 3% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "odi_4_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "ODI 4% computado por pac_v2."
+    },
+    {
+      "name": "odi_4_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "ODI 4% reportado por el device."
+    },
+    {
+      "name": "odi_4_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta ODI 4% (pac_v2 − device)."
+    },
+    {
+      "name": "odi_4_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa ODI 4% (pac_v2/device − 1)."
+    },
+    {
+      "name": "odi_4_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa ODI 4% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "ahi_3_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "AHI 3% computado por pac_v2."
+    },
+    {
+      "name": "ahi_3_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "AHI 3% reportado por el device."
+    },
+    {
+      "name": "ahi_3_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta AHI 3% (pac_v2 − device)."
+    },
+    {
+      "name": "ahi_3_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa AHI 3% (pac_v2/device − 1)."
+    },
+    {
+      "name": "ahi_3_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa AHI 3% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "ahi_4_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "AHI 4% computado por pac_v2."
+    },
+    {
+      "name": "ahi_4_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "AHI 4% reportado por el device."
+    },
+    {
+      "name": "ahi_4_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta AHI 4% (pac_v2 − device)."
+    },
+    {
+      "name": "ahi_4_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa AHI 4% (pac_v2/device − 1)."
+    },
+    {
+      "name": "ahi_4_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa AHI 4% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "t90_frac_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "T90 frac computado por pac_v2."
+    },
+    {
+      "name": "t90_frac_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "T90 frac reportado por el device."
+    },
+    {
+      "name": "t90_frac_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta T90 frac (pac_v2 − device)."
+    },
+    {
+      "name": "t90_frac_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa T90 frac (pac_v2/device − 1)."
+    },
+    {
+      "name": "t90_frac_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa T90 frac (|diff_rel|>umbral)."
+    },
+    {
+      "name": "hypoxic_burden_3_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden 3% computado por pac_v2."
+    },
+    {
+      "name": "hypoxic_burden_3_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden 3% reportado por el device."
+    },
+    {
+      "name": "hypoxic_burden_3_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta Hypoxic burden 3% (pac_v2 − device)."
+    },
+    {
+      "name": "hypoxic_burden_3_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa Hypoxic burden 3% (pac_v2/device − 1)."
+    },
+    {
+      "name": "hypoxic_burden_3_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa Hypoxic burden 3% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "hypoxic_burden_4_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden 4% computado por pac_v2."
+    },
+    {
+      "name": "hypoxic_burden_4_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Hypoxic burden 4% reportado por el device."
+    },
+    {
+      "name": "hypoxic_burden_4_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta Hypoxic burden 4% (pac_v2 − device)."
+    },
+    {
+      "name": "hypoxic_burden_4_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa Hypoxic burden 4% (pac_v2/device − 1)."
+    },
+    {
+      "name": "hypoxic_burden_4_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa Hypoxic burden 4% (|diff_rel|>umbral)."
+    },
+    {
+      "name": "tst_s_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "TST (s) computado por pac_v2."
+    },
+    {
+      "name": "tst_s_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "TST (s) reportado por el device."
+    },
+    {
+      "name": "tst_s_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta TST (s) (pac_v2 − device)."
+    },
+    {
+      "name": "tst_s_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa TST (s) (pac_v2/device − 1)."
+    },
+    {
+      "name": "tst_s_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa TST (s) (|diff_rel|>umbral)."
+    },
+    {
+      "name": "sleep_efficiency_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Sleep efficiency computado por pac_v2."
+    },
+    {
+      "name": "sleep_efficiency_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Sleep efficiency reportado por el device."
+    },
+    {
+      "name": "sleep_efficiency_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta Sleep efficiency (pac_v2 − device)."
+    },
+    {
+      "name": "sleep_efficiency_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa Sleep efficiency (pac_v2/device − 1)."
+    },
+    {
+      "name": "sleep_efficiency_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa Sleep efficiency (|diff_rel|>umbral)."
+    },
+    {
+      "name": "waso_s_pac_v2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "WASO (s) computado por pac_v2."
+    },
+    {
+      "name": "waso_s_device",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "WASO (s) reportado por el device."
+    },
+    {
+      "name": "waso_s_diff_abs",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia absoluta WASO (s) (pac_v2 − device)."
+    },
+    {
+      "name": "waso_s_diff_rel",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Diferencia relativa WASO (s) (pac_v2/device − 1)."
+    },
+    {
+      "name": "waso_s_diff_flag",
+      "kind": "single_night",
+      "dtype": "bool",
+      "description": "Flag de divergencia significativa WASO (s) (|diff_rel|>umbral)."
+    },
+    {
+      "name": "algorithm_version",
+      "kind": "single_night",
+      "dtype": "str",
+      "description": "Versión del algoritmo de events que generó el _indices original."
+    },
+    {
+      "name": "events_schema_version",
+      "kind": "single_night",
+      "dtype": "str",
+      "description": "Versión del schema de events que generó el _indices original."
+    },
+    {
+      "name": "frac_morpho_α",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de EDOs de morfotipo α (sobre el total de EDOs de la noche)."
+    },
+    {
+      "name": "frac_morpho_β",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de EDOs de morfotipo β (sobre el total de EDOs de la noche)."
+    },
+    {
+      "name": "frac_morpho_γ",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de EDOs de morfotipo γ (sobre el total de EDOs de la noche)."
+    },
+    {
+      "name": "frac_morpho_δ",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de EDOs de morfotipo δ (sobre el total de EDOs de la noche)."
+    },
+    {
+      "name": "frac_state_s_S0",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S0 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_s_S1",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S1 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_s_S2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S2 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_s_S3",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S3 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_s_S4",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S4 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_s_S5",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state S5 (escala s, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M0",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M0 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M1",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M1 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M2 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M3",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M3 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M4",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M4 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M5",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M5 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M6",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M6 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_m_M7",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state M7 (escala m, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L0",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L0 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L1",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L1 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L2",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L2 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L3",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L3 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L4",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L4 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "frac_state_l_L5",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Fracción de ventanas en PAC state L5 (escala l, sobre el total de ventanas válidas)."
+    },
+    {
+      "name": "n_transitions_state_l",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de transiciones de state entre ventanas consecutivas (escala l)."
+    },
+    {
+      "name": "n_transitions_state_m",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de transiciones de state entre ventanas consecutivas (escala m)."
+    },
+    {
+      "name": "n_transitions_state_s",
+      "kind": "single_night",
+      "dtype": "int",
+      "description": "Número de transiciones de state entre ventanas consecutivas (escala s)."
+    },
+    {
+      "name": "entropy_state_l",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Shannon entropy (en bits) de la distribución de PAC states (escala l)."
+    },
+    {
+      "name": "entropy_state_m",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Shannon entropy (en bits) de la distribución de PAC states (escala m)."
+    },
+    {
+      "name": "entropy_state_s",
+      "kind": "single_night",
+      "dtype": "float",
+      "description": "Shannon entropy (en bits) de la distribución de PAC states (escala s)."
+    },
+    {
+      "name": "model_version",
+      "kind": "identity",
+      "dtype": "str",
+      "description": "Versión del modelo aplicado (de models/MANIFEST.json)."
+    },
+    {
+      "name": "in_quality",
+      "kind": "flag",
+      "dtype": "bool",
+      "description": "True si la noche pasó silver_qc y no está en b2_fail."
+    },
+    {
+      "name": "in_strict",
+      "kind": "flag",
+      "dtype": "bool",
+      "description": "True si in_quality y NO está en flag_for_review (B3∪B4)."
+    },
+    {
+      "name": "in_high_tst",
+      "kind": "flag",
+      "dtype": "bool",
+      "description": "True si in_quality y tst_s ≥ 4 horas."
+    },
+    {
+      "name": "flag_for_review",
+      "kind": "flag",
+      "dtype": "bool",
+      "description": "True si está en pac_states_flag_for_review (B3 dominance ∪ B4 outliers)."
+    },
+    {
+      "name": "b2_fail",
+      "kind": "flag",
+      "dtype": "bool",
+      "description": "True si está en b2_fail_excluded (silver_qc fail confirmado)."
+    },
+    {
+      "name": "ahi_3_pct_corpus",
+      "kind": "cross_night_corpus",
+      "dtype": "float",
+      "description": "Percentile-rank de ahi_3 en el corpus quality (553 noches) — referencia poblacional."
+    },
+    {
+      "name": "t90_frac_pct_corpus",
+      "kind": "cross_night_corpus",
+      "dtype": "float",
+      "description": "Percentile-rank de t90_frac en el corpus quality (553 noches) — referencia poblacional."
+    },
+    {
+      "name": "odi_3_pct_corpus",
+      "kind": "cross_night_corpus",
+      "dtype": "float",
+      "description": "Percentile-rank de odi_3 en el corpus quality (553 noches) — referencia poblacional."
+    },
+    {
+      "name": "delta_ahi_3_vs_baseline_patient",
+      "kind": "cross_night_patient",
+      "dtype": "float",
+      "description": "Δ ahi_3 de esta noche vs baseline del paciente (mean leave-one-out sobre sus otras noches quality, ≥3 noches)."
+    },
+    {
+      "name": "delta_t90_frac_vs_baseline_patient",
+      "kind": "cross_night_patient",
+      "dtype": "float",
+      "description": "Δ t90_frac de esta noche vs baseline del paciente (mean leave-one-out sobre sus otras noches quality, ≥3 noches)."
+    },
+    {
+      "name": "delta_odi_3_vs_baseline_patient",
+      "kind": "cross_night_patient",
+      "dtype": "float",
+      "description": "Δ odi_3 de esta noche vs baseline del paciente (mean leave-one-out sobre sus otras noches quality, ≥3 noches)."
+    }
+  ]
+}

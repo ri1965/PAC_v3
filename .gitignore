@@ -1,0 +1,82 @@
+# --- Raws (archivos de origen: datos clínicos — NUNCA versionar) ---
+raw/**
+
+# --- PII local: NO versionar ---
+patients/patient_registry.csv
+
+# --- Intermedios generados (bronze / silver / events / states / gold) ---
+bronze/**
+silver/**
+events/**
+states/**
+gold/**
+!bronze/.gitkeep
+!silver/.gitkeep
+!events/.gitkeep
+!states/.gitkeep
+!gold/.gitkeep
+!gold/MANIFEST.json
+!gold/nights_columns.json
+!gold/nights_columns_descriptions.csv
+
+# --- Modelos persistidos (etapa 3b) ---
+# POLÍTICA TESIS: los PKL son canon congelado — no re-fitear (ver README.md).
+# Se versionan TODOS los PKL de canon porque son pequeños (<2 MB c/u) y
+# un jurado que clone el repo necesita los modelos para re-correr NB01–NB08.
+# Si el pipeline crece y los PKL se vuelven pesados, migrar a Git LFS.
+models/*.pkl
+!models/edo_morphotype_curve_kmeans.pkl
+!models/pac_states_s_kmeans.pkl
+!models/pac_states_m_kmeans.pkl
+!models/pac_states_l_kmeans.pkl
+!models/nb05_traj_kmeans.pkl
+!models/nb06_event_lgbm.pkl
+!models/nb06_night_lr.pkl
+!models/.gitkeep
+
+# --- Reportes y logs ---
+reports/**
+!reports/.gitkeep
+# Excepción: reportes de decisiones de diseño (insumo para trazabilidad).
+!reports/sleep_staging_validation.md
+!reports/sleep_staging_validation.html
+!reports/sleep_staging_validation.json
+# Excepción Etapa 4 — PAC states (insumos de decisión de K + validación post-fit).
+!reports/pac_states_sweep.json
+!reports/pac_states_training_report.json
+!reports/pac_states_batch_gate.json
+!reports/pac_states_validation.md
+!reports/pac_states_validation.json
+# Excepción Etapa 4 paso 7 — labeling batch report.
+!reports/pac_states_apply_report.json
+# Excepción Etapa 4 paso 8 — QA del labeling.
+!reports/pac_states_apply_qa.md
+!reports/pac_states_apply_qa.json
+!reports/pac_states_apply_qa.csv
+!reports/b2_fail_excluded.json
+!reports/pac_states_flag_for_review.csv
+# Excepción Etapa 4 paso 8.5 — selección de noches stratigraphy (reproducibilidad).
+!reports/stratigraphy_nights_selected.json
+# HTMLs de stratigraphy: grandes y regenerables, no versionar.
+reports/stratigraphy/**
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# --- SO ---
+.DS_Store
+Thumbs.db
+~$*
+
+# --- Artefactos de exportación (HTML preview de docs MD, R history) ---
+*.html
+.Rhistory
+# Excepciones: HTMLs versionados arriba (sleep_staging, etc.) tienen su propia regla "!".
+
+# --- Lock de venv (regenerable con scripts/freeze_lock.sh) ---
+requirements.lock.txt

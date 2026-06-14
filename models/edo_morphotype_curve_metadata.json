@@ -1,0 +1,50 @@
+{
+  "algorithm_version": "pac_v2_morphotypes_curve_1.0.0",
+  "schema_version": "1",
+  "k": 5,
+  "cluster_labels": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5"
+  ],
+  "feature_space": "spo2_delta_curve_30pt",
+  "feature_description": "Delta SpO2 vs baseline del evento, interpolado a 30 puntos de tiempo normalizado [0%..100%] del evento.",
+  "normalization": "none",
+  "ordering": "C1=menos severo → C5=más severo (por nadir de centroide)",
+  "n_training": 85277,
+  "training_filter": {
+    "duration_s_max": 180,
+    "in_quality_night": true
+  },
+  "random_state": 42,
+  "inertia_final": 5246811.200495704,
+  "cluster_stats": [
+    {
+      "label": "C1",
+      "nadir_spo2_delta": -1.689,
+      "nadir_position_pct": 55.2
+    },
+    {
+      "label": "C2",
+      "nadir_spo2_delta": -3.834,
+      "nadir_position_pct": 72.4
+    },
+    {
+      "label": "C3",
+      "nadir_spo2_delta": -7.904,
+      "nadir_position_pct": 24.1
+    },
+    {
+      "label": "C4",
+      "nadir_spo2_delta": -8.591,
+      "nadir_position_pct": 72.4
+    },
+    {
+      "label": "C5",
+      "nadir_spo2_delta": -15.276,
+      "nadir_position_pct": 58.6
+    }
+  ]
+}

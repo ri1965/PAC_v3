@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-16T23:57:42",
+  "mode": "final",
+  "n_nights_processed": 560,
+  "scales_trained": [
+    "s",
+    "m",
+    "l"
+  ],
+  "scales_failed": [],
+  "all_ok": true,
+  "validation_timestamp": "2026-05-16T23:57:47",
+  "validation_all_ok": false,
+  "validation_proceed": true,
+  "validation_failed_checks": [],
+  "validation_warned_checks": [
+    "s.C1"
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "timestamp": "2026-05-16T23:57:47",
+  "scales_validated": [
+    "s",
+    "m",
+    "l"
+  ],
+  "k_per_scale": {
+    "s": 7,
+    "m": 5,
+    "l": 4
+  },
+  "thresholds": {
+    "C1_min_cluster_pct_fail": 0.3,
+    "C1_min_cluster_pct_pass": 2.0,
+    "C2_min_centroid_dist": 1.0,
+    "C3_min_dominant_diversity": 0.5,
+    "C3_min_ntot_range": 1.0,
+    "C5_epsilon": 0.001
+  },
+  "by_scale": [
+    {
+      "scale": "s",
+      "k": 7,
+      "sizes_training": {
+        "S0": 96771,
+        "S1": 126365,
+        "S2": 94719,
+        "S3": 38718,
+        "S4": 22254,
+        "S5": 6639,
+        "S6": 3526
+      },
+      "checks": [
+        {
+          "check_id": "C1",
+          "name": "cluster_sizes",
+          "status": "WARN",
+          "detail": "min=0.91% · max=32.49% · umbral_FAIL<0.3% · umbral_PASS≥2.0% · WARN=['S5', 'S6']",
+          "data": {
+            "pcts": {
+              "S0": 24.877,
+              "S1": 32.485,
+              "S2": 24.35,
+              "S3": 9.953,
+              "S4": 5.721,
+              "S5": 1.707,
+              "S6": 0.906
+            },
+            "fail_violators": {},
+            "warn_violators": {
+              "S5": 1.7067189042448174,
+              "S6": 0.9064453767686739
+            },
+            "fail_pct_threshold": 0.3,
+            "pass_pct_threshold": 2.0
+          }
+        },
+        {
+          "check_id": "C2",
+          "name": "centroid_separation",
+          "status": "PASS",
+          "detail": "min_dist=2.887 · umbral=1.00 · par más cercano=(S0,S1)",
+          "data": {
+            "min_dist": 2.886751,
+            "closest_pair": [
+              0,
+              1
+            ],
+            "min_dist_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C3",
+          "name": "morphotype_coherence",
+          "status": "PASS",
+          "detail": "3/7 morphotypes dominantes distintos (diversity=0.43 · umbral=0.50) · rango n_edos_total=1.07 (umbral=1.00) · PASS por n_edos_total_range",
+          "data": {
+            "dominant_by_cluster": {
+              "S0": "n_beta",
+              "S1": "n_beta",
+              "S2": "n_beta",
+              "S3": "n_beta",
+              "S4": "n_beta",
+              "S5": "n_gamma",
+              "S6": "n_alpha"
+            },
+            "n_unique_dominant": 3,
+            "diversity": 0.429,
+            "n_edos_total_range": 1.067002106210686,
+            "diversity_ok": false,
+            "ntot_range_ok": true,
+            "min_diversity_threshold": 0.5,
+            "min_ntot_range_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C4",
+          "name": "sleep_coherence",
+          "status": "PASS",
+          "detail": "max_light=0.99 · max_deep=0.99 · max_wake=0.03 (informativo; wake excluida por training mask) · excepción deep-opcional aplicada",
+          "data": {
+            "max_wake": 0.027,
+            "max_light_sleep": 0.99,
+            "max_deep_sleep": 0.991,
+            "has_light": true,
+            "has_deep": true,
+            "deep_required": false,
+            "scale_s_exception_applied": true,
+            "wake_excluded_by_training_mask": true
+          }
+        },
+        {
+          "check_id": "C5",
+          "name": "physiological_ranges",
+          "status": "PASS",
+          "detail": "24 features chequeadas — todas en rango · 8 valores en zona ε[-1e-03]",
+          "data": {
+            "n_violators": 0,
+            "violators": [],
+            "epsilon": 0.001,
+            "near_zero_clipped": 8
+          }
+        }
+      ]
+    },
+    {
+      "scale": "m",
+      "k": 5,
+      "sizes_training": {
+        "M0": 10815,
+        "M1": 1898,
+        "M2": 8662,
+        "M3": 7932,
+        "M4": 9671
+      },
+      "checks": [
+        {
+          "check_id": "C1",
+          "name": "cluster_sizes",
+          "status": "PASS",
+          "detail": "min=4.87% · max=27.75% · umbral_FAIL<0.3% · umbral_PASS≥2.0%",
+          "data": {
+            "pcts": {
+              "M0": 27.746,
+              "M1": 4.869,
+              "M2": 22.223,
+              "M3": 20.35,
+              "M4": 24.811
+            },
+            "fail_violators": {},
+            "warn_violators": {},
+            "fail_pct_threshold": 0.3,
+            "pass_pct_threshold": 2.0
+          }
+        },
+        {
+          "check_id": "C2",
+          "name": "centroid_separation",
+          "status": "PASS",
+          "detail": "min_dist=2.824 · umbral=1.00 · par más cercano=(M0,M2)",
+          "data": {
+            "min_dist": 2.823776,
+            "closest_pair": [
+              0,
+              2
+            ],
+            "min_dist_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C3",
+          "name": "morphotype_coherence",
+          "status": "PASS",
+          "detail": "1/5 morphotypes dominantes distintos (diversity=0.20 · umbral=0.50) · rango n_edos_total=2.81 (umbral=1.00) · PASS por n_edos_total_range",
+          "data": {
+            "dominant_by_cluster": {
+              "M0": "n_beta",
+              "M1": "n_beta",
+              "M2": "n_beta",
+              "M3": "n_beta",
+              "M4": "n_beta"
+            },
+            "n_unique_dominant": 1,
+            "diversity": 0.2,
+            "n_edos_total_range": 2.808859030445796,
+            "diversity_ok": false,
+            "ntot_range_ok": true,
+            "min_diversity_threshold": 0.5,
+            "min_ntot_range_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C4",
+          "name": "sleep_coherence",
+          "status": "PASS",
+          "detail": "max_light=0.91 · max_deep=0.92 · max_wake=0.13 (informativo; wake excluida por training mask)",
+          "data": {
+            "max_wake": 0.134,
+            "max_light_sleep": 0.912,
+            "max_deep_sleep": 0.918,
+            "has_light": true,
+            "has_deep": true,
+            "deep_required": true,
+            "scale_s_exception_applied": false,
+            "wake_excluded_by_training_mask": true
+          }
+        },
+        {
+          "check_id": "C5",
+          "name": "physiological_ranges",
+          "status": "PASS",
+          "detail": "24 features chequeadas — todas en rango",
+          "data": {
+            "n_violators": 0,
+            "violators": [],
+            "epsilon": 0.001,
+            "near_zero_clipped": 0
+          }
+        }
+      ]
+    },
+    {
+      "scale": "l",
+      "k": 4,
+      "sizes_training": {
+        "L0": 856,
+        "L1": 1696,
+        "L2": 2493,
+        "L3": 2276
+      },
+      "checks": [
+        {
+          "check_id": "C1",
+          "name": "cluster_sizes",
+          "status": "PASS",
+          "detail": "min=11.69% · max=34.05% · umbral_FAIL<0.3% · umbral_PASS≥2.0%",
+          "data": {
+            "pcts": {
+              "L0": 11.692,
+              "L1": 23.166,
+              "L2": 34.053,
+              "L3": 31.089
+            },
+            "fail_violators": {},
+            "warn_violators": {},
+            "fail_pct_threshold": 0.3,
+            "pass_pct_threshold": 2.0
+          }
+        },
+        {
+          "check_id": "C2",
+          "name": "centroid_separation",
+          "status": "PASS",
+          "detail": "min_dist=3.406 · umbral=1.00 · par más cercano=(L1,L3)",
+          "data": {
+            "min_dist": 3.405658,
+            "closest_pair": [
+              1,
+              3
+            ],
+            "min_dist_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C3",
+          "name": "morphotype_coherence",
+          "status": "PASS",
+          "detail": "1/4 morphotypes dominantes distintos (diversity=0.25 · umbral=0.50) · rango n_edos_total=13.10 (umbral=1.00) · PASS por n_edos_total_range",
+          "data": {
+            "dominant_by_cluster": {
+              "L0": "n_beta",
+              "L1": "n_beta",
+              "L2": "n_beta",
+              "L3": "n_beta"
+            },
+            "n_unique_dominant": 1,
+            "diversity": 0.25,
+            "n_edos_total_range": 13.100168191521178,
+            "diversity_ok": false,
+            "ntot_range_ok": true,
+            "min_diversity_threshold": 0.5,
+            "min_ntot_range_threshold": 1.0
+          }
+        },
+        {
+          "check_id": "C4",
+          "name": "sleep_coherence",
+          "status": "PASS",
+          "detail": "max_light=0.52 · max_deep=0.39 · max_wake=0.22 (informativo; wake excluida por training mask)",
+          "data": {
+            "max_wake": 0.224,
+            "max_light_sleep": 0.523,
+            "max_deep_sleep": 0.39,
+            "has_light": true,
+            "has_deep": true,
+            "deep_required": true,
+            "scale_s_exception_applied": false,
+            "wake_excluded_by_training_mask": true
+          }
+        },
+        {
+          "check_id": "C5",
+          "name": "physiological_ranges",
+          "status": "PASS",
+          "detail": "24 features chequeadas — todas en rango · 1 valores en zona ε[-1e-03]",
+          "data": {
+            "n_violators": 0,
+            "violators": [],
+            "epsilon": 0.001,
+            "near_zero_clipped": 1
+          }
+        }
+      ]
+    }
+  ],
+  "gate": {
+    "validation_all_ok": false,
+    "validation_proceed": true,
+    "any_fail_blocking": false,
+    "any_warn": true,
+    "failed_checks": [],
+    "warned_checks": [
+      "s.C1"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "manifest_version": "1.0",
+  "generated_at": "2026-05-17T00:13:10",
+  "git_sha": null,
+  "model_manifest_path": "models/MANIFEST.json",
+  "model_version": "v1",
+  "tables": {
+    "events": {
+      "path": "gold/events.parquet",
+      "n_rows": 85286,
+      "n_cols": 33,
+      "size_bytes": 3591971,
+      "size_mb": 3.426,
+      "sha256_short": "b6114860e4b2ec37"
+    },
+    "events_curves": {
+      "path": "gold/events_curves.parquet",
+      "n_rows": 85286,
+      "n_cols": 5,
+      "size_bytes": 9026411,
+      "size_mb": 8.608,
+      "sha256_short": "45db0273f1782720"
+    },
+    "states": {
+      "path": "gold/states.parquet",
+      "n_rows": 518867,
+      "n_cols": 22,
+      "size_bytes": 15465567,
+      "size_mb": 14.749,
+      "sha256_short": "f897686280d8f8f2"
+    },
+    "nights": {
+      "path": "gold/nights.parquet",
+      "n_rows": 560,
+      "n_cols": 146,
+      "size_bytes": 559246,
+      "size_mb": 0.533,
+      "sha256_short": "d0d66d9c099157db"
+    },
+    "patients": {
+      "path": "gold/patients.parquet",
+      "n_rows": 12,
+      "n_cols": 71,
+      "size_bytes": 49456,
+      "size_mb": 0.047,
+      "sha256_short": "9dbc7b16ca57a0ac"
+    }
+  },
+  "build_order": [
+    "events",
+    "events_curves",
+    "states",
+    "nights",
+    "patients"
+  ],
+  "cohort_policy": "B — todas las noches con flags (in_quality, in_strict, in_high_tst, flag_for_review, b2_fail). Las cross-night _pct_corpus se computan SOBRE in_quality como referencia.",
+  "n_tables": 5,
+  "n_tables_present": 5,
+  "notes": "Sidecar versionado en git. SHA256 truncado a 16 chars para trazabilidad. Regenerar con scripts/build_gold_manifest.py después de cualquier rebuild de Gold."
+}

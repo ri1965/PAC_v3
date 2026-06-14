@@ -78,5 +78,5 @@ Thumbs.db
 .Rhistory
 # Excepciones: HTMLs versionados arriba (sleep_staging, etc.) tienen su propia regla "!".
 
-# --- Lock de venv (regenerable con scripts/freeze_lock.sh) ---
-requirements.lock.txt
+# --- Lock de venv (versionar para reproducibilidad de tesis) ---
+# requirements.lock.txt  ← se versiona intencionalmente

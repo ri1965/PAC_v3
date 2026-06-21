@@ -1,14 +1,14 @@
-# PAC_v2
+# PAC_v3
 
 > Pipeline de procesamiento y análisis de registros polisomnográficos
 > simplificados (señales SpO₂, HR, movimiento) para caracterización
 > dinámica de la apnea del sueño. Maestría en Data Science, Universidad
 > Austral. Autor: Roberto Inza.
 
-**Estado**: v1.2-tesis. 560 noches quality (12 pacientes) · 540 noches cohorte strict (8 pacientes) ·
+**Estado**: v3-tesis. 560 noches quality (12 pacientes) · 540 noches cohorte strict (8 pacientes) ·
 85,277 EDOs quality · 11 parquets Gold · NB01–NB08 completos · app Streamlit operativa.
 
-## ¿Qué es PAC_v2?
+## ¿Qué es PAC_v3?
 
 Un pipeline que toma un registro nocturno crudo (`.xlsx` exportado del
 device) y lo convierte en una **caracterización rica del sueño**:

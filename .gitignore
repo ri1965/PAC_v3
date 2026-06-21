@@ -83,3 +83,7 @@ Thumbs.db
 
 # --- Lock de venv (versionar para reproducibilidad de tesis) ---
 # requirements.lock.txt  ← se versiona intencionalmente
+
+# --- tesis_cap: solo el texto final en el repo (resto = intermedios) ---
+tesis_cap/**
+!tesis_cap/Tesis_PAC_v62.docx

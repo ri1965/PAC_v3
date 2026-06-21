@@ -87,3 +87,7 @@ Thumbs.db
 # --- tesis_cap: solo el texto final en el repo (resto = intermedios) ---
 tesis_cap/**
 !tesis_cap/Tesis_PAC_v62.docx
+
+# --- tesis_cap: solo el texto final en el repo (resto = intermedios) ---
+tesis_cap/**
+!tesis_cap/Tesis_PAC_v63.docx

@@ -60,6 +60,9 @@ reports/**
 # HTMLs de stratigraphy: grandes y regenerables, no versionar.
 reports/stratigraphy/**
 
+# --- Backups locales de figuras (snapshots PRE-fix, regenerables) ---
+notebooks/figuras/*_PRE_*.png
+
 # --- Python ---
 __pycache__/
 *.pyc

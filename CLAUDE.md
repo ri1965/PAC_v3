@@ -86,7 +86,7 @@ Bronze  →  Silver  →  Events  →  Gold
   ```
   Los pesos 0.6 / 0.4 reflejan la mayor confiabilidad de la señal cardíaca (PPG) frente al sensor de movimiento. **Ortogonalidad: ρ(ARI, drop_pct) = 0,035** (Spearman, n = 85.277 EDOs; severidad del evento; fuente canónica: Cap04 §4.3.1). [⚠ El antiguo "ρ(ARI, ODI3)=0,034" era el valor de drop_pct mal etiquetado; ρ vs ODI3 real = −0,066 evento / −0,245 noche.] ICC(1,1) noche-nivel = 0,69 (cohorte completa) / 0,74 (cohorte estricta) — rasgo moderadamente estable del paciente.
 
-  **Gradiente autonómico inverso (Cap04 §4.3.3)**: C5 presenta el ARI más bajo del corpus (0,423 ± 0,104). Los morfotipos severos tienen mayor carga hipóxica pero menor reactividad autonómica, no mayor.
+  **Gradiente autonómico inverso (Cap04 §4.3.2)**: C5 presenta el ARI más bajo del corpus (0,423 ± 0,104). Los morfotipos severos tienen mayor carga hipóxica pero menor reactividad autonómica, no mayor.
 
 ### Representaciones derivadas
 - **Morfotipos C1–C5**: 5 fenotipos de curvas SpO₂ individuales, obtenidos por K-means (K=5) sobre PCA de 30 puntos de curva normalizados (85.277 EDOs con morfotipo asignado). C4+C5 = severos (5.122 eventos, 6,0% del corpus de 85.277).
@@ -180,7 +180,7 @@ Ocho secciones que operacionalizan el marco teórico del Cap02. Versión final: 
 Análisis de nivel evento: morfotipos y ARI. Versión final: v12.
 
 - **4.1** Corpus de eventos (560 noches, 85.286 EDOs total / 85.277 quality / 85.277 con morfotipo)
-- **4.2** Fenotipado morfológico (NB01): PCA (PC1=62,9% / PC2=14,0% / PC3=7,0%); K=5 (Silhouette=0,386); morfotipos C1–C5; distribución (C4+C5=6,0%; C4=4.301/5,0%, C5=821/1,0%); IEI mediano=82s; correspondencia con α–δ; ICC inter-noche
+- **4.2** Fenotipado morfológico (NB01): PCA (PC1=62,9% / PC2=14,0% / PC3=7,0%); K=5 (Silhouette=0,432; no es máximo, decrece desde K=2 — se elige por interpretabilidad C4/C5); morfotipos C1–C5; distribución (C4+C5=6,0%; C4=4.301/5,0%, C5=821/1,0%); IEI mediano=82s; correspondencia con α–δ; ICC inter-noche
 - **4.3** Diagnóstico IRD → definición ARI (NB02): bug de escala en IRD; ρ(ARI, drop_pct)=0,034; gradiente inverso C5 ARI más bajo (0,423); análisis within-stratum; ICC(1,1)=0,69/0,74
 - **4.4** Síntesis features nocturnas (NB03): matriz 50 features, 560 noches (re-baseado desde 553)
 - **4.5** Validación reproducibilidad multi-noche: ODI3 necesita ~7 noches; ARI estable desde noche 1
@@ -206,15 +206,15 @@ PAC States multiescala. Versión final: v12.
 Modelado predictivo basado en PAC. Versión final: v7.
 
 - **6.1–6.2** Introducción y corpus (NB05: 12 pac./80.353 ev./560 noches; NB06/07: 8 pac.)
-- **6.3** Acoplamiento morfotipo–estado (NB05 §2): V de Cramér S=0,354/M=0,230/L=0,196; estados patológicos S2/S4/S6, M1/M3, L0/L1; RR: S6×4,9 / M1×3,3 / L0×2,0
+- **6.3** Acoplamiento morfotipo–estado (NB05 §2): V de Cramér S=0,356/M=0,231/L=0,196 (unificado, antes 0,354/0,230/0,194); estados patológicos S2/S4/S6, M1/M3, L0/L1; RR: S6×4,9 / M1×3,3 / L0×2,0
 - **6.4** Coupling index nocturno: ci_s vs ci_m prácticamente independientes (r=0,056); ci_m/ci_l moderado (r=0,364)
 - **6.5** Resiliencia post-evento severo: S=43,3% / M=12,3% / L=1,3% — inercia creciente con la escala
 - **6.6** Dinámica Markoviana: 462.519 trans. S / 45.900 M / 7.196 L; atractores S1/M0/L3
 - **6.7** Fenotipos de trayectoria nocturna (K=3, NB05 §6): Estable-Protector / Carga Intermedia / Carga Hipóxica Alta; hallazgo clave: fenotipo CHA aparece en subgrupo SAOS Moderado
-- **6.8** Ablación LOPO-CV (NB06): PAC States dominan (44,75%); morfotipos 20,2%; dinámica 14,7%; ARI solo 3,4% / balanced acc.=0,281
-- **6.9–6.10** Predicción evento severo (NB07 Bloque B): LightGBM AUC=0,878 / LR=0,743; AP=0,240 vs baseline=5,56%; 76.053 eventos, 8 pac.
-- **6.11–6.12** Clasificación riesgo nocturno (NB07 Bloque C): LR AUC=0,905 / RF=0,783; AP=0,834 vs baseline=0,348; fracciones M dominantes; 494 noches
-- **6.13** Risk Score PAC (0–100): 0,40×p_ev_norm + 0,60×p_high_risk_night (heurístico); lead time ≈5 min = ventana causal NB07, NO predicción prospectiva (eso es Cap08)
+- **6.8** Ablación → título "Importancia **discriminante**" (NB06): PAC States 44,8% (Gini 0,4485, 15 vars); morfotipos 20,6% (0,2057); dinámica 14,7% (0,1470); clínicas 10,1%; sueño 6,6%; ARI 3,3% (0,0325). Balanced acc.: PAC-only **0,481** (antes 0,521, stale) / clínicas 0,354 / ARI 0,281
+- **6.9–6.10** Predicción evento severo (NB07 Bloque B): LightGBM AUC=0,878 / LR=0,743; AP=0,240 vs baseline=**5,57%**; 76.053 eventos, 4.238 severos, 8 pac.
+- **6.11–6.12** Clasificación riesgo nocturno → título "**Clasificación de riesgo a nivel de noche**" (NB07 Bloque C): LR AUC=0,905 / RF=**0,777**; AP=0,834 vs baseline=0,348; fracciones M dominantes (**77,8%** de la importancia, antes 88,9% stale); 494 noches, 34,8% pos.
+- **6.13** Risk Score PAC (0–100): 0,40×p_ev_norm + 0,60×p_high_risk_night (heurístico); bandas **Bajo<30 / Intermedio 30–60 / Alto>60** (banda media renombrada "Intermedio" para no chocar con AASM Moderado); medianas 29,2/29,4/72,9/81,0; @60 captura 100% Sev / 77,6% Mod / **9,4%** Leves; Moderado AASM abarca RS 23–100; lead time ≈5 min = ventana causal NB07, NO predicción prospectiva (eso es Cap08)
 - **6.14–6.16** Relación con capítulos previos / Limitaciones / Conclusión; bridge a Cap07
 
 **Nota NB08**: el contenido de NB08 (predicción prospectiva con horizonte temporal H∈{2,5,10,15} min, 452.955 ventanas, habilitación del estimulador) pertenece al **Cap08**, no al Cap06.
@@ -501,3 +501,122 @@ Referencias identificadas como relevantes para Cap09, pendientes de incorporar c
 
 ### Estado
 **Checklist completo (C1–C4, I1–I3, M1–M13) + verificación conjunta cerrados. Cifras de titular consistentes entre los 13 documentos y coincidentes con el Gold.** Listo para evaluación estricta independiente.
+
+---
+
+## 21. Sesión recorte conceptual + re-verificación Cap 04 (Junio 2026)
+
+Cap 04 llevado a versión **conceptual-anclada** (mensaje en prosa, números en tablas/figuras) y **re-auditado celda por celda contra el Gold**. Surgieron correcciones de datos que NO eran cosméticas (valores stale de corridas preliminares). **Valores canónicos confirmados/corregidos:**
+
+- **Silhouette morfotipos de curva (NB01)**: K=5 = **0,432** (era 0,386). El Silhouette **decrece** desde K=2 (0,576/0,463/0,462/0,432/0,217/0,199); K=5 **no es máximo** — se elige por interpretabilidad (separa C4/C5) y por ser el último K antes de la caída en K=6. La fig. recalcula sobre muestra de 8000 (0,214); el valor canónico es el del training report.
+- **Nadir de curva C5 (Tabla 4.2)**: **−15,3 pp** (era −10,1). drop_pct C5 = 24,4 media / 23,3 mediana.
+- **Tabla 4.7 ICC ODI3**: **0,77 / 0,79** (full/strict) (era 0,71/0,72). Fuente canónica = **NB00 `icc_oneway`** (reproduce exacto ARI 0,69/HB 0,41/T90 0,52/SE 0,35). Nota: coexiste `icc11` (NB01, corrección n0) que da ~0,02 más.
+- **Tabla 4.8 (estabilización ODI3, strict-8)**: MAE real **4,8 / 2,7 / 1,7 / 1,2** ev/h (1/3/7/14 noches). Se eliminó la columna ICC (el ICC del ODI3 vive solo en Tabla 4.7). Fuente: NB03 celda 67 / `APNEA_validacion`.
+- **ρ(ARI, ODI3) noche = −0,245** (NO ≈0). La ortogonalidad ≈0 es **ρ(ARI, drop_pct)=0,035 a nivel evento**. (Mismo error que ya se corrigió en Cap09/10; estaba latente en §4.4.)
+
+**Cambios estructurales Cap 04:** Tabla 4.9 (carga hipóxica acumulada por morfotipo: C4+C5=23,8% con 6,0% eventos; C5=7,0%) agregada al Anexo C + celda reproducible en NB01. Columna "Pos. nadir" eliminada de Tabla 4.2. §4.2.3 (IEI) fusionado en §4.2.2. Figuras regeneradas desde el Gold: **Fig 4.2** (`01_clustering_kmeans.png`) y **Fig 4.6** (`03_odi3_estabilidad_multinoche.png`); backups `_PRE_*`.
+
+**⚠ IEI (82 s / 62,8 %)**: sin fuente reproducible en ningún NB (recompute Gold onset-to-onset = 81 s / 63,5 %). El glosario lo define end-to-start (daría 58 s) — inconsistencia no resuelta en Anexo B.
+
+**Versión vigente del consolidado: `Tesis_PAC_v18.docx`** (v10 fue la base; v11 descartable). Cadena: v13 (Tabla 4.1) → v15 (silhouette+Fig4.2+Pos.nadir) → v16 (Tabla 4.7 ODI3) → v17 (Tabla 4.8+Fig4.6) → v18 (alt-text Fig 4.1).
+
+**Pendiente:** (1) extender recorte conceptual + re-verificación contra Gold a **Cap 05 y Cap 06** (misma procedencia de métricas: silhouette/K, ICC, V de Cramér, AUC, RR — riesgo de errores análogos). (2) Reconciliar cohorte de Fig 4.6 en NB03 (usa ≥5 noches=10 pac; la tesis usa strict-8). (3) Glosario IEI (definición vs valor).
+
+---
+
+## 22. Sesión recorte conceptual + re-verificación Cap 06 (Junio 2026)
+
+Cap 06 llevado a versión **conceptual-anclada** (prosa describe, números viven en tablas/figuras) y **re-auditado contra el Gold/NB06/NB07**. Consolidado vigente: **`Tesis_PAC_v38.docx`** (cadena v28→v38). Las cifras de abajo **prevalecen** sobre cualquier valor anterior de Cap 06.
+
+### Cifras canónicas verificadas (Gold/NB06/NB07)
+- **V de Cramér acoplamiento (unificado en todo el doc)**: **0,356 / 0,231 / 0,196** (S/M/L). Se descartó el "0,355/0,229/0,194" que la tesis traía; §20 queda superado en este punto.
+- **§6.3 Coupling Index** — correlaciones cruzadas: r(ci_s,ci_m)=**0,056** (antes 0,066 stale); r(ci_m,ci_l)=**0,364** (antes 0,291 stale); r(ci_s,ci_l)=−0,113 (n=513).
+- **§6.4 Resiliencia post-evento severo (NB05 §B4)**: resiliente 43,3/12,3/1,3 % (S/M/L); colapsado 40,2/80,4/74,5 %. ⚠ "resiliente" = ventana siguiente **no patológica** (sale del estado patológico), no estrictamente "protectora"; el resto al 100 % = sin ventana siguiente (último evento). Corredor Markoviano M0/M2→M4→M3→M1.
+- **§6.5 Fenotipos de trayectoria (Tabla 6.5, NB05 §6, K=3, 513 noches/12 pac.)** — perfil por medianas: Estable-Protector M1=2,8% / ARI=0,522 / entropía M=1,497 / trans=29 / %sev=3,1; Carga Intermedia M1=3,5% / %sev=5,0% / ARI=0,493 / trans=42 / entropía=1,933; CHA M1=78,1% / %sev=**36,1%** (antes 37,9) / ARI=0,284 / trans=6 / entropía=1,122. CHA exclusiva de AASM **Moderado** (cross-tab: 4,4% Moderado, 0% Leve/Normal/Severo).
+- **§6.6 Ablación → "Importancia discriminante"** (NB06, RandomForest, 540 noches, night_multiscale_features): Gini PAC States 0,4485 (44,8%, **15 vars** no 20) · Morfotipos 0,2057 (20,6%) · PAC Dynamics 0,1470 (14,7%) · Clínicas 0,1007 (10,1%) · Sueño 0,0656 (6,6%) · ARI 0,0325 (3,3%). Balanced acc.: **PAC-only 0,481** (el 0,521 era markdown stale del NB) / clínicas 0,354 / ARI 0,281.
+- **§6.7 Evento (NB07 Bloque B)**: 76.053 ev., 4.238 severos = **5,57%** (baseline AP, antes 5,56); LightGBM AUC 0,878 / AP 0,240 (4,3×); LR 0,743 / 0,164 (2,9×); Youden LGBM Sens 0,87/Spec 0,76; rango AUC fold 0,798–0,964; features event_position>recent_morph_mean>ci_so_far.
+- **§6.8 Noche → "Clasificación de riesgo a nivel de noche"** (NB07 Bloque C): 494 noches, 34,8% pos.; LR AUC **0,905**/AP 0,834; RF **0,777**/0,633 (antes 0,783); baseline 0,348; AUC pooled, por-paciente solo en 5/8 folds (media 0,856); fracciones M = **77,8%** de la importancia (el 88,9% venía de run preliminar con M0–M7; el Gold canónico tiene M0–M4).
+- **§6.9 Risk Score**: bandas **Bajo<30 / Intermedio 30–60 / Alto>60** (banda media renombrada "Intermedio" para no colisionar con AASM "Moderado"; cambiado en nota Tabla 6.9, caveat y glosario). @60 captura 100% Sev / 77,6% Mod / **9,4%** Leves (≥60, convención inclusiva; el 9,0% usaba >60). Moderado AASM abarca RS 23–100. Spearman RS~ODI3 = 0,79 (discordancia inversa RS-bajo/ODI3-alto rara: 2,4%).
+
+### Decisiones editoriales
+- Títulos: §6.6 "predictiva"→"**discriminante**" (es clasificación retrospectiva, no predicción); §6.8 "Modelo predictivo a nivel de noche"→"**Clasificación de riesgo a nivel de noche**".
+- Evitar "ablación" (→ "análisis de contribución") y "features" (→ "variables") en §6.6.
+- Risk Score §6.9 reescrito didáctico: lectura de un valor concreto (RS<30 tranquila / >60 compromiso sostenido / 30–60 parcial), discordancia forward (riesgo oculto) + reverso.
+- **Formato títulos/epígrafes normalizado document-wide**: títulos de figura/tabla = Aptos 10 bold; notas ("Nota.") = Aptos 9 italic (reparó captions que habían quedado sin rPr).
+
+### Pendiente
+- Reinsertar índice automático + niveles de esquema al final (se venía difiriendo).
+
+---
+
+## 23. Sesión auditoría Cap 05 (Junio 2026) — CERRADO
+
+Cap 05 re-verificado celda por celda contra el Gold. **Resultado: prácticamente limpio** (a diferencia de Cap 04/06, no tenía valores stale). Consolidado vigente: **`Tesis_PAC_v39.docx`**.
+
+### Verificado exacto contra Gold
+- Especialización: M1~T90 **0,744** · M1~HB **0,618** · S5~ARI **0,637** · L0~T90 (t90_frac) **0,683** · L3~ARI **0,357**.
+- Fracciones (window-level, states.parquet, 518.867 ventanas ≈ "~519K"): S1+S2 = 60,0 %; **S6 = 0,98 %** (el más raro); M0/M1/M2/M4 = 27/7/19/27; L0/L1/L2/L3 = 13/23/34/30.
+- PCA 21 features (560 noches): PC1 36,7 % / PC2 20,2 % / PC3 12,1 % (69,0 % acum, 5 comp. para 80 %).
+- Fenotipos trayectoria K=3 (513 noches): Estable-Protector 138 (27 %) / Carga Intermedia 368 (72 %) / CHA **7** (1 %). CHA M1≈78 %, ARI≈0,28.
+- Tabla 5.2: V de Cramér 0,356/0,231/0,196; transiciones 462.519/45.900/7.196 (total 515.615); 83.892 eventos.
+
+### Única corrección aplicada
+- **S4~ODI3 = 0,690** (Gold 0,6896), antes **0,691**. Corregido en 7 lugares: Cap 05 (§5.2, nota Fig 5.5, Tabla 5.3) + Cap 09 + Cap 10 (texto + Tablas 10.1 y 10.2). Resto del valor (0,744/0,637/0,683) sin cambios.
+- Recorte conceptual: no requerido — Cap 05 ya estaba conceptual-anclado (prosa describe, números en tablas).
+
+**Estado: Cap 01–06 cerrados y re-baseados al Gold.** Consolidado = `Tesis_PAC_v40.docx`.
+
+### Cierre de inconsistencias menores (v40)
+- **Glosario IEI** reconciliado: definición → *inicio-a-inicio* (onset-to-onset); valor reproducible del Gold = **81 s / 63,5 % < 2 min** (events.parquet `ts_start`, n=84.726). Reemplaza el viejo "82 s / 62,8 %" con definición end-to-start inconsistente.
+- **Fig 5.3 alt-text** corregido: "Perfil fisiológico de los cinco estados…" (stale, invisible) → "Fisiología de los eventos según el estado M activo (mediana ± IQR)" (coincide con el caption visible).
+- **Fig 4.6**: en el docx ya está strict-8 (caption + figura regenerada). La inconsistencia ≥5 noches=10 pac es solo del código de NB03 (hygiene de notebook, no afecta la tesis).
+- **Markdown "553 noches"**: verificado inexistente en NB01/NB03 (ni código ni salida). No hay nada que corregir.
+
+### Único pendiente de Cap 01–06
+- **Índice automático + niveles de esquema (outline)**: NO está (0 outlineLvl, 0 campo TOC). Hacerlo **al final de todo**, para no regenerarlo tras ediciones estructurales posteriores.
+
+---
+
+## 24. Sesión revisión Cap 07–10 (Junio 2026) — CERRADO
+
+Consolidado vigente: **`Tesis_PAC_v43.docx`**. **Cap 01–10 revisados completos y re-baseados al Gold; barrido doc-wide de residuos stale = 0.**
+
+- **Cap 07** (App clínica): aprobado como está, sin cambios (decisión del autor).
+- **Cap 08** (predicción prospectiva, NB08): verificado exacto contra NB08 — 452.955 ventanas, prevalencia 3,74/8,04/13,88/18,89 %, Tabla 8.4 (AUC LR 0,789/0,774/0,760/0,750; LGBM 0,838/0,821/0,783/0,763; AP 0,203/0,326/0,396/0,449), Tabla 8.6 (Youden, Sens/Spec/PPV), heterogeneidad 20× (Pac175 32,1 % / Pac314 1,6 %, re-derivada desde events.parquet C4/C5). Únicos cambios: §8.5 PPV 5min **20,1→20,3 %** y estimación "~5→~4 reales" (coherencia con PPV 20 %).
+- **Cap 09** (Discusión): 2 valores stale corregidos — §9.2.1 IEI **82 s/62,8 %→81 s/63,5 %** (inicio-a-inicio, alineado con glosario); §9.3.2 ARI trayectoria **0,524/0,492→0,522/0,493** (Tabla 6.5). Resto = cross-refs ya verificados.
+- **Cap 10** (Conclusiones): limpio; S4→ODI3 ya en +0,690. Tablas 10.1/10.2 verificadas.
+- **Residuo final**: nota Fig 6.15 (anexo) "Baseline AP 5,56→**5,57 %**".
+
+### ⚠ Bug de Gold detectado (NO afecta la tesis) — tarea pendiente
+- **`gold/window_risk_predictions.parquet`**: columnas `y_2min/y_5min/y_10min/y_15min` **desalineadas del `user_id`** (prevalencia por paciente sale uniforme ~8 %, ratio 1,7×; la verdadera, recomputada desde events.parquet y coincidente con NB08 c8, es 1,6–32,4 %, ratio 20×). Re-exportar alineado en NB08. La tesis usa los valores in-session de NB08 (correctos), así que no está afectada.
+
+### Índice automático — HECHO (v45)
+- Consolidado vigente: **`Tesis_PAC_v45.docx`**. Se insertaron niveles de esquema vía `outlineLvl` directo (sin tocar el formato visual): **92 párrafos** (10 capítulos a nivel 1 = subtítulo descriptivo; 66 secciones N.N a nivel 2; 16 subsecciones N.N.N a nivel 3). Campo TOC `TOC \o "1-3" \h \z \u` antes del Capítulo 1 + `updateFields=true` en settings.xml. ⚠ El índice es un placeholder hasta que Word actualice el campo (F9 / clic derecho → Actualizar campos) — Word calcula títulos y números de página al abrir.
+
+### Pendientes de cierre final (después de todo)
+1. **Corregir `y_Hmin`** en `window_risk_predictions.parquet` (hygiene de Gold; tarea #14, no afecta la tesis).
+
+---
+
+## 25. Sesión bug PATH_M + regeneración Gold + verificación app (Junio 2026) — CERRADO
+
+Consolidado vigente: **`Tesis_PAC_v46.docx`**. Surge de verificar la PAC App corriendo sobre nochés-benchmark del Gold.
+
+### Bug real encontrado y corregido (PATH_M en NB07)
+- **NB07 usaba `PATH_M = {0,2,5,7}`** (numeración M=8 preliminar) en la feature `frac_path_m_30ev` del modelo de evento, cuando el modelo se entrenó con `{1,3}` (M1,M3 canónico; `generate_app_models.py`) y la app usa `{1,3}`. **Corregido en `NB07_prediccion.ipynb` → `{1,3}`** y re-corrido NB07 (regenera p_severe_mean/p_high_risk_night/risk_score en `night_multiscale_features.parquet`). Backup: `night_multiscale_features_PRE_pathm.parquet`.
+- **Efecto (menor):** AUC evento **0,878→0,882**, AP **0,240→0,264**, mejora 4,3×→4,7×, Youden LGBM Sens 0,87→0,89/Spec 0,76→0,75, rango fold 0,798–0,964→0,803–0,960; LR AUC 0,743→0,745/AP 0,164→0,165/2,9×→3,0×. RS medianas 29,2/29,4/72,9/81,0 → **28,2/29,3/73,1/81,3**; captura @60 Leve 9,4%→**9,0%** (Mod 77,6%, Sev 100% igual). **§6.8 (noche) sin cambios** (0,905/0,777). Aplicado a la tesis en v46 (§6.7, §6.9, Tabla 6.9 composición, Fig 6.15, Tabla 8.1, Tablas 10.1/10.2, glosario).
+
+### Aclaración clave (mi diagnóstico inicial fue erróneo)
+- El `p_severe_mean` del Gold **NO está roto**: es la predicción **LOPO out-of-fold** (`ev_df['p_severe']=all_probs`, NB07 c15/c19), metodológicamente correcta. La ρ≈0 a nivel noche-promedio es esperable (predicción dominada por contexto), no un bug. La discordancia §6.9 es **real**, no artefacto.
+- La divergencia app↔Gold (exam_12038: app RS 34 vs Gold 72) es **in-sample (app, modelo guardado entrenado con los 8 pac.) vs out-of-fold (Gold/tesis, LOPO)** — esperable para pacientes de la cohorte; para un paciente nuevo (producción) la app se comporta out-of-fold. Ninguno está "mal".
+
+### Bug real de la app (corregido aparte)
+- `app/pipeline.py`: normalizador del Risk Score era `p_severe_mean / 0.30` (hardcode incorrecto) → inflaba el RS ~25 pts. **Corregido a `/ 0.7431`** (= p99 de p_severe_mean del corpus, NB07). Verificado: exam_11555 RS 98→74, reproduce el batch.
+
+### §7.4 (RESUELTO en v47)
+- El ejemplo de §7.4 (antes 87 EDOs, ODI₂ 10,4, ci_m 0,82, "CHA" — no correspondía a noche real) se reescribió con `exam_11555` (NR_4c7feeef42, pac 656, **Carga Intermedia**) verificada con la app: 259 EDOs, ODI₂ 32,3, 18 severos (6,9 %), ci_m 0,944, RS 74 (Alto), valores consistentes con el batch out-of-fold (73,1).
+
+### Consolidado vigente: `Tesis_PAC_v47.docx`
+
+### Pendiente de cierre (no afecta la tesis)
+1. **`y_Hmin`** desalineado en `window_risk_predictions.parquet` (tarea #14, hygiene de Gold).

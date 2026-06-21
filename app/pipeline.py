@@ -663,9 +663,11 @@ def _predict(
     is_high_risk_night = int(p_night >= night_thr)
 
     # ── Risk Score ─────────────────────────────────────────────────────────
-    # Normalise p_severe_mean: use 0.99 quantile from training as ceiling
-    # (equivalent to the D1 normalisation in NB06, approximated here)
-    p_ev_norm = min(p_severe_mean / 0.30, 1.0) if not np.isnan(p_severe_mean) else 0.0
+    # Normalise p_severe_mean by the corpus ceiling = p_ev.max() de NB07 (Bloque D),
+    # que es el percentil 99 de p_severe_mean sobre la cohorte estricta (494 noches).
+    # Antes estaba 0.30 (aprox. incorrecta): inflaba el Risk Score ~25 pts respecto del batch.
+    P_SEVERE_CEILING = 0.7431  # = np.percentile(p_severe_mean, 99) del corpus PAC_v3 (NB07 c29)
+    p_ev_norm = min(p_severe_mean / P_SEVERE_CEILING, 1.0) if not np.isnan(p_severe_mean) else 0.0
     risk_score = round(
         float(np.clip((w_event * p_ev_norm + w_night * p_night) * 100, 0, 100)),
         1,

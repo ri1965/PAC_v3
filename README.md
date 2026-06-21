@@ -142,19 +142,33 @@ python run.py update                                   # regenera todo downstrea
 ### 5. App interactiva (Streamlit)
 
 La app carga un `.xlsx` nocturno y devuelve análisis completo en 5 tabs interactivos
-con Risk Score, morfotipos, estados PAC, historia nocturna e informe IA.
+con Risk Score, morfotipos, estados PAC, historia nocturna e informe IA. **Es
+autocontenida**: usa solo `models/` (canon versionado), **no necesita `gold/`**.
+
+**Correr local** (desde el root del repo clonado):
 
 ```bash
-conda activate apnea
-cd /Users/ri1965/Proyectos/PAC_v2   # ← importante: lanzar desde el root del proyecto
+pip install -r requirements.txt     # incluye streamlit + backends LLM
 streamlit run app/app.py
 ```
 
-Se abre en **http://localhost:8501**. Si Streamlit no está instalado en el entorno:
+Se abre en **http://localhost:8501**. Subí un `.xlsx` nocturno con el uploader del
+sidebar. Para reproducibilidad exacta de tesis, usar `requirements.lock.txt` (versiones
+fijas) en vez de `requirements.txt`.
 
-```bash
-pip install streamlit>=1.30 anthropic>=0.25 openai>=1.0
-```
+**Deploy a Streamlit Community Cloud** (acceso del jurado, sin instalar nada):
+
+1. Repo público en GitHub (branch `jurado`).
+2. Entrar a https://share.streamlit.io → **New app** → repo `ri1965/PAC_v3`,
+   branch `jurado`, main file `app/app.py`. Streamlit instala desde
+   `requirements.txt` del root automáticamente.
+3. (Opcional) Cargar `ANTHROPIC_API_KEY` en **Settings → Secrets** para habilitar
+   el informe IA del Tab 5; sin clave, los otros 4 tabs funcionan igual.
+
+> **Para probar la app** hace falta un `.xlsx` en el formato del device (hoja
+> `Exam Data`: `id, time_start, time_end, user_id` + señales SpO₂/HR/MOV a 1 Hz).
+> Los registros clínicos reales viven en `raw/` (no versionado por PII): proveer
+> un archivo de muestra anonimizado por separado.
 
 **App de diagnóstico** (debug paso a paso del pipeline, puerto separado):
 

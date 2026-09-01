@@ -84,10 +84,17 @@ Thumbs.db
 # --- Lock de venv (versionar para reproducibilidad de tesis) ---
 # requirements.lock.txt  ← se versiona intencionalmente
 
-# --- tesis_cap: solo el texto final en el repo (resto = intermedios) ---
-tesis_cap/**
-!tesis_cap/Tesis_PAC_v62.docx
 
-# --- tesis_cap: solo el texto final en el repo (resto = intermedios) ---
+# --- tesis_cap: solo la versión de entrega en el repo (resto = intermedios) ---
 tesis_cap/**
-!tesis_cap/Tesis_PAC_v64.docx
+!tesis_cap/Tesis_Final_R_Inza.docx
+!tesis_cap/Tesis_Final_R_Inza.pdf
+
+# --- datos de examen: nunca al repo (Anexo D) ---
+exam_*.xlsx
+
+# --- backups locales ---
+*.bak
+
+# --- Entrega_Tesis: snapshot local de la entrega, no versionar ---
+/Entrega_Tesis/

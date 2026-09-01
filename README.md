@@ -32,6 +32,7 @@ EDOs.
 ```
 PAC_v2/
 ├── raw/              .xlsx de origen (no versionados)
+├── samples/          examen sintético de demo (sin PII) para probar la app
 ├── bronze/           parquet con señales canonizadas (gitignored)
 ├── silver/           parquet con QC y signals limpias (gitignored)
 ├── events/           EDOs + curvas + indices por noche (gitignored)
@@ -165,10 +166,14 @@ fijas) en vez de `requirements.txt`.
 3. (Opcional) Cargar `ANTHROPIC_API_KEY` en **Settings → Secrets** para habilitar
    el informe IA del Tab 5; sin clave, los otros 4 tabs funcionan igual.
 
-> **Para probar la app** hace falta un `.xlsx` en el formato del device (hoja
-> `Exam Data`: `id, time_start, time_end, user_id` + señales SpO₂/HR/MOV a 1 Hz).
-> Los registros clínicos reales viven en `raw/` (no versionado por PII): proveer
-> un archivo de muestra anonimizado por separado.
+> **Para probar la app** hay un examen de muestra **sintético** (sin ningún dato
+> real de paciente) en `samples/PAC_muestra_sintetica_noche.xlsx`: subilo con el
+> uploader del sidebar (o descargalo del repo si estás en el deploy). Reproduce el
+> formato del device (hoja `Exam Data`, 3 bloques: metadata `id, time_start,
+> time_end, user_id` · 21 índices clásicos · señal per-second
+> SpO₂/HR/MOV/sleep_stage a 1 Hz) y simula una noche de apnea moderada
+> (~8 h, ODI₃ ≈ 15, AHI₃ ≈ 14). Los registros clínicos reales viven en `raw/`
+> (no versionado por PII); este archivo es sintético, seguro para el repo.
 
 **App de diagnóstico** (debug paso a paso del pipeline, puerto separado):
 
@@ -246,6 +251,8 @@ PYTHONPATH=src python3 -m pytest tests/test_orchestrator.py -v
   `patient_id`) sí se versiona.
 - Los archivos `bronze/`/`silver/`/`events/`/`states/`/`gold/*.parquet`
   son regenerables desde raw/. No contienen PII (solo `user_id`).
+- `samples/PAC_muestra_sintetica_noche.xlsx` es un examen **100% sintético**
+  (generado, sin datos reales): seguro para el repo público; sirve para probar la app.
 
 ## Roadmap
 
